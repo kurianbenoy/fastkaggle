@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fastkaggle",
+    "section": "",
+    "text": "Either:\npip install fastkaggle\nor:\nmamba install -c fastai fastkaggle\n(or replace mamba with conda if you don’t mind it taking much longer to run…)"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "fastkaggle",
+    "section": "How to use",
+    "text": "How to use\nThis little library is where I’ll be putting snippets of stuff which are useful on Kaggle. Functionality includes the following:\nIt defines iskaggle which is True if you’re running on Kaggle:\n\n'Kaggle' if iskaggle else 'Not Kaggle'\n\n'Not Kaggle'\n\n\nIt provides a setup_comp function which gets a path to the data for a competition, downloading it if needed, and also installs any modules that might be missing or out of data if running on Kaggle:\n\nsetup_comp('titanic')\n\nPath('titanic')\n\n\nThere’s also push_notebook to push a notebook to Kaggle Notebooks, and import_kaggle to use the Kaggle API (even when you’re on Kaggle!) See the fastkaggle.core docs for details."
+  },
+  {
+    "objectID": "core.html#datasets",
+    "href": "core.html#datasets",
+    "title": "fastkaggle.core",
+    "section": "Datasets",
+    "text": "Datasets\n\n\nmk_dataset\n\n mk_dataset (dataset_path, title, force=False, upload=True)\n\nCreates minimal dataset metadata needed to push new dataset to kaggle\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndataset_path\n\n\nLocal path to create dataset in\n\n\ntitle\n\n\nName of the dataset\n\n\nforce\nbool\nFalse\nShould it overwrite or error if exists?\n\n\nupload\nbool\nTrue\nShould it upload and create on kaggle\n\n\n\n\nmk_dataset('./testds','mytestds',force=True)\nmd = json.load(open('./testds/dataset-metadata.json'))\nassert md['title'] == 'mytestds'\nassert md['id'].endswith('/mytestds')\n\nData package template written to: testds/dataset-metadata.json\n\n\n\n\n\nget_dataset\n\n get_dataset (dataset_path, dataset_slug, unzip=True, force=False)\n\nDownloads an existing dataset and metadata from kaggle\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndataset_path\n\n\nLocal path to download dataset to\n\n\ndataset_slug\n\n\nDataset slug (ie “zillow/zecon”)\n\n\nunzip\nbool\nTrue\nShould it unzip after downloading?\n\n\nforce\nbool\nFalse\nShould it overwrite or error if dataset_path exists?\n\n\n\n\ndl_path = Path('./mydataset')\nget_dataset(dl_path,'isaacflath/testds',force=True)\nds_contents = ['abc.test','dataset-metadata.json','fastcore-1.5.11-py3-none-any.whl','packaging-21.3-py3-none-any.whl',\n               'pip-22.2.1-py3-none-any.whl','pyparsing-3.0.9-py3-none-any.whl']\nassert L(os.listdir(dl_path)).sorted() == ds_contents\n\n\n\n\nget_pip_library\n\n get_pip_library (dataset_path, pip_library, pip_cmd='pip')\n\nDownload the whl files for pip_library and store in dataset_path\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndataset_path\n\n\nLocal path to download pip library to\n\n\npip_library\n\n\nname of library for pip to install\n\n\npip_cmd\nstr\npip\npip base to use (ie “pip3” or “pip”)\n\n\n\n\ndl_path = Path('./mylib')\nget_pip_library(dl_path,'fastkaggle')\nassert 1==len([o for o in dl_path.ls() if str(o).startswith(f\"{dl_path}/fastkaggle\")])\n\n\n\n\npush_dataset\n\n push_dataset (dataset_path, version_comment)\n\nPush dataset update to kaggle. Dataset path must contain dataset metadata file\n\n\n\n\nDetails\n\n\n\n\ndataset_path\nLocal path where dataset is stored\n\n\nversion_comment\nComment associated with this dataset update\n\n\n\n\n# dataset_path = Path('./testds452')\n# mk_dataset(dataset_path,'mytestd232s',force=True)\n# (dataset_path/'testfile.txt').touch()\n# push_dataset(dataset_path,'testing')"
+  },
+  {
+    "objectID": "CHANGELOG.html",
+    "href": "CHANGELOG.html",
+    "title": "fastkaggle",
+    "section": "",
+    "text": "fix comp should be competition in setup_comp” (#3), thanks to @n-e-w\n\n\n\n\n\n\n\n\napi not exported (#1)\n\n\n\n\n\n\ninit release"
+  }
+]
